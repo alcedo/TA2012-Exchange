@@ -1,2 +1,16 @@
-/*This file contains CSS overrides for dashboard.html */
+/* This file contains CSS overrides for dashboard.html */
 
+/* This function determines radius of the nav bar */
+.navbar-rounded-border (@radius) {
+	-webkit-border-top-left-radius: @radius;
+	-webkit-border-top-right-radius: @radius;
+	-moz-border-radius-topleft: @radius;
+	-moz-border-radius-topright: @radius;
+	border-top-left-radius: @radius;
+	border-top-right-radius: @radius;	
+}
+
+/* Set navigation bar to be rounded */
+.navbar.span10.offset1 div.navbar-inner.dashboard { 
+	.navbar-rounded-border(10px);
+}
