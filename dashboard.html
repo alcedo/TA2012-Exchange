@@ -21,7 +21,7 @@
 	<link rel="stylesheet" href="less/style.css">
 	 -->
 
-	<script src="js/libs/modernizr-2.5.3-respond-1.1.0.min.js"></script>
+
 </head>
 <body>
 
@@ -38,15 +38,40 @@
 		<!-- Navigation bar -->
 		<div class="navbar span10 offset1">
 			<div class="navbar-inner dashboard">
-				f
+				<div class="container">
+					<ul class="nav">
+					  <li class="active">
+					    <a href="#" >PORTFOLIO</a>
+					  </li>
+					  <li class=""><a href="#">STOCKS</a></li>
+					  <li><a href="#">NEWS</a></li>
+					  <li><a href="#">HISTORY</a></li>
+					  <li><a href="#">LEADERBOARD</a></li>
+					</ul>
+					<ul class="nav pull-right">
+						<li class="divider-vertical"></li>
+						<li class=""><a href="#">LOGOUT</a></li>
+					</ul>
+			   </div>
 			</div>	
 		</div>
-		
-    <div class="container">
-
     <!-- / Navigation bar -->
 
 
+    <!--  ticker scrolling  -->
+    <div id="ticker-carousel" class="carousel slide">
+    	<!-- Carousel items -->
+    	<div class="carousel-inner">
+    	  <div class="active item">FACEBOOK</div>
+    	  <div class="item">APPLE</div>
+    	  <div class="item">GOOGLE</div>
+    	</div>
+    	<!-- Carousel nav -->
+    	<a class="carousel-control left" href="#ticker-carousel" data-slide="prev">&lsaquo;</a>
+    	<a class="carousel-control right" href="#ticker-carousel" data-slide="next">&rsaquo;</a>
+    </div>
+
+    <div class="container">
       <!-- Example row of columns -->
     <div class="row">
 			
@@ -70,6 +95,15 @@
 
 <script src="js/libs/bootstrap/bootstrap.min.js"></script>
 
+<script src="js/plugins.js"></script>
 <script src="js/script.js"></script>
+
+	<script src="js/libs/modernizr-2.5.3-respond-1.1.0.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+					$('.carousel').carousel();
+		});	
+	</script>
+
 </body>
 </html>
