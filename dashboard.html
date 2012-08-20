@@ -73,9 +73,7 @@
   				<div id="ticker-carousel" class="carousel slide">
   					<!-- Carousel items -->
   					<div class="carousel-inner">
-  					  <div id="ticker-data" class="item">APPLE A:30, B60 | FACEBOOK A:30, B60 | Google A:30, B60 | A'ZONE A:30, B60 | iPHONE A:30, B60 | DELL A:30, B60 </div>
-  					  <div  id="ticker-data" class="item">B5N3 | AHAAAA | A:30, B60A:30, B60 | A'ZONE | iPHONE | DELL </div>
-  					  <div  id="ticker-data" class="item">APPLE | FACEBOOK | Google | A'ZONE | iPHONE | DELL </div>
+  	
   					</div>
   				</div>
 
@@ -116,35 +114,7 @@
 <script src="js/script.js"></script>
 
 <script src="js/libs/modernizr-2.5.3-respond-1.1.0.min.js"></script>
-<script type="text/javascript">
 
-	// Namespaced Global associative array. 
-	$.tickerData = { };  // usage: $.tickerData.myVarName = "STRING" to set. 
-
-
-	// Stock name, change, % Change amt (changeinPercent)
-	var dataRow = new Array();
-
-	for (var i = 0; i < 10; i++) {
-		dataRow[i] = ["Apple Corp"+i, "+0."+i, "+11.5%"];
-		// console.log(dataRow[i][0], dataRow[i][1], dataRow[i][2]);
-	}
-
-	$(".carousel-inner #ticker-data").each(function(index, element) {
-		console.log(index, $(element).text(dataRow[index] +" " + dataRow[index+1] + " " + dataRow[index+2]));
-	});
-
-
-	$(document).ready(function () {
-				$('.carousel').carousel({
-					interval: 1000
-				});
-	});	
-
-
-
-
-</script>
 
 <script type="text/javascript">
 // Use Data JS to parse ODATA format. This enables us to deal with the underlying
@@ -152,7 +122,8 @@
 // refer to DATAJS website for more details on how to use it.
 OData.defaultHttpClient.enableJsonpCallback = true;
 
-var stockInfo = new Array();
+// Namespaced Global associative array. 
+$.tickerData = { };  // usage: $.tickerData.myVarName = "STRING" to set. 
 
 function getStockInfo(){
     // set headers to JSON if we intend to have JSON being returned to us.
@@ -170,6 +141,7 @@ function getStockInfo(){
     	//       console.log( index + ' : ' + value );
     	// });
 
+
     });
 }//end of function getStockInfo()
 
@@ -183,20 +155,60 @@ function update(){
         var jdata = data.results;
 
         var row = new Array();
-
+		$.tickerData["dataArray"] = new Array();
         for (var i = 0; i < jdata.length; i++) {
            row[i]={tickerSymbol: jdata[i].tickerSymbol, change:jdata[i].change, changeinPercent:jdata[i].changeinPercent};
-           console.log($.tickerData[row[i].tickerSymbol] + ' | ' + row[i].tickerSymbol + ' | ' + row[i].change);
+           $.tickerData["dataArray"][i] = $.tickerData[row[i].tickerSymbol] + '(' + row[i].tickerSymbol + '.HK), ' + row[i].change +" (" + row[i].changeinPercent+")";
+           // console.log($.tickerData[row[i].tickerSymbol] + ' | ' + row[i].tickerSymbol + ' | ' + row[i].change);
+           // console.log($.tickerData["dataArray"][i]);
         }
+
+       
+
+    	for (var i = 0; i < $.tickerData["dataArray"].length; i+=3) {
+			console.log($.tickerData["dataArray"][i] +' | ' + $.tickerData["dataArray"][i+1] +' | ' + $.tickerData["dataArray"][i+2]);
+			$(".carousel-inner").append(
+				"<div id=\"ticker-data\" class=\"item\">"+$.tickerData["dataArray"][i] +' | ' + $.tickerData["dataArray"][i+1] +' | ' + $.tickerData["dataArray"][i+2]+"</div>"
+				)
+
+
+		 	// $(element).text(dataRow[index] +" " + dataRow[index+1] + " " + dataRow[index+2]);
+    	}
+
 
 
     });
 }//end of function update()
 
-// setInterval(update, 5000);
+setInterval(update, 5000);
 update();
 </script>
 
+<script type="text/javascript">
+
+	// Stock name, change, % Change amt (changeinPercent)
+	var dataRow = new Array();
+
+	for (var i = 0; i < 10; i++) {
+		dataRow[i] = ["Apple Corp"+i, "+0."+i, "+11.5%"];
+		// console.log(dataRow[i][0], dataRow[i][1], dataRow[i][2]);
+	}
+
+	$(".carousel-inner #ticker-data").each(function(index, element) {
+		// console.log(index, $(element).text(dataRow[index] +" " + dataRow[index+1] + " " + dataRow[index+2]));
+	});
+
+
+	$(document).ready(function () {
+				$('.carousel').carousel({
+					interval: 3000
+				});
+	});	
+
+
+
+
+</script>
 
 </body>
 </html>
