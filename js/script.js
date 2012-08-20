@@ -1,5 +1,6 @@
 /* Author: FRONT END
-Site specific application codes.
+  Site specific application codes.
+
 */
 
 
@@ -39,7 +40,7 @@ dashboard = {
     OData.read({ requestUri: "http://175.156.130.85/TAExchangeBrokerage/Brokerage.svc/markets", headers: { Accept: "application/json"} },
     function (data, request) {
 
-        var jdata = data.results;
+    var jdata = data.results;
 
     $.tickerData["dataArray"] = new Array();
         for (var i = 0; i < jdata.length; i++) {
@@ -47,7 +48,7 @@ dashboard = {
            $.tickerData["dataArray"][i] = $.tickerData[jdata[i].tickerSymbol] + '(' + jdata[i].tickerSymbol + '.HK), ' + jdata[i].change +" (" + jdata[i].changeinPercent+")";
         }
 
-        // Append results in to HTML div to be displayed.
+      // Append results in to HTML div to be displayed.
       for (var i = 0; i < $.tickerData["dataArray"].length; i+=3) {
       // Todo: Check for $.tickerData being undefined !  
       // console.log($.tickerData["dataArray"][i] +' | ' + $.tickerData["dataArray"][i+1] +' | ' + $.tickerData["dataArray"][i+2]);
@@ -61,8 +62,8 @@ dashboard = {
   },
 
   startCarousel : function () {
-    dashboard.getStockInfo(); 
 
+    this.getStockInfo(); 
     setInterval(this.updateStockInfo, 5000);
 
     $('.carousel').carousel({
