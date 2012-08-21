@@ -7,6 +7,11 @@
 
 /*  dashboard namespace */
 dashboard = {
+
+  variables : {
+    connectionURL: "http://192.168.1.10"
+  }, 
+
   getStockInfo : function() {
     // Use Data JS to parse ODATA format. This enables us to deal with the underlying
     // payload data without having to parse the XML tags ourselves. 
@@ -17,8 +22,9 @@ dashboard = {
     $.tickerData = { };  // usage: $.tickerData.myVarName = "STRING" to set. 
 
     // set headers to JSON if we intend to have JSON being returned to us.
-    OData.read({ requestUri: "http://175.156.130.85/TAExchangeBrokerage/Brokerage.svc/stocks", headers: { Accept: "application/json"} },
+    OData.read({ requestUri: dashboard.variables.connectionURL+'/TAExchangeBrokerage/Brokerage.svc/stocks', headers: { Accept: "application/json"} },
     function (data, request) {
+
 
         var jdata = data.results;
 
@@ -37,15 +43,16 @@ dashboard = {
 
   updateStockInfo : function() {
     // set headers to JSON if we intend to have JSON being returned to us.
-    OData.read({ requestUri: "http://175.156.130.85/TAExchangeBrokerage/Brokerage.svc/markets", headers: { Accept: "application/json"} },
+    OData.read({ requestUri: dashboard.variables.connectionURL+'/TAExchangeBrokerage/Brokerage.svc/markets', headers: { Accept: "application/json"} },
     function (data, request) {
 
     var jdata = data.results;
 
     $.tickerData["dataArray"] = new Array();
         for (var i = 0; i < jdata.length; i++) {
+        
            // Store data in global var
-           $.tickerData["dataArray"][i] = $.tickerData[jdata[i].tickerSymbol] + '(' + jdata[i].tickerSymbol + '.HK), ' + jdata[i].change +" (" + jdata[i].changeinPercent+")";
+           $.tickerData["dataArray"][i] = $.tickerData[jdata[i].tickerSymbol] + ' (' + jdata[i].tickerSymbol + '.HK), ' + jdata[i].change +" (" + jdata[i].changeinPercent+")";
         }
 
       // Append results in to HTML div to be displayed.

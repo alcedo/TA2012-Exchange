@@ -1,0 +1,281 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title></title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="viewport" content="width=device-width">
+
+	<link rel="stylesheet/less" href="less/style.less">
+	<script src="js/libs/less-1.3.0.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="./Styles/custom-theme/jquery-ui-1.8.22.custom.css"  />
+	<link type="text/css" rel="stylesheet" href="./Styles/demo_table_jui.css"/>
+	<link type="text/css" rel="stylesheet" href="./Styles/demo_page.css"/>
+    <link type="text/css" rel="stylesheet" href="./Styles/data-table.css"/>
+    <script type="text/javascript" src="./Scripts/datajs-1.0.1.js"></script>
+    <script type="text/javascript" src="./Scripts/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="./Scripts/jquery-ui-1.8.22.custom.min.js"></script>
+    <script type="text/javascript" src="./Scripts/jquery.dataTables.min.js"></script>
+	
+	<!-- Use SimpLESS (Win/Linux/Mac) or LESS.app (Mac) to compile your .less files
+	to style.css, and replace the 2 lines above by this one:
+
+	<link rel="stylesheet" href="less/style.css">
+	 -->
+
+
+</head>
+<body>
+<script type="text/javascript">
+    // Use Data JS to parse ODATA format. This enables us to deal with the underlying
+    // payload data without having to parse the XML tags ourselves. 
+    // refer to DATAJS website for more details on how to use it.
+    OData.defaultHttpClient.enableJsonpCallback = true;
+
+    function update(){
+        OData.read({ requestUri: "http://192.168.1.10/TAExchangeBrokerage/Brokerage.svc/markets", headers: { Accept: "application/json"} },
+            function (data, request) {
+                var output = document.getElementById('raw_out');
+                //output.innerHTML = JSON.stringify(data);
+
+                var jdata = data.results;
+
+                var row = new Array();
+
+
+                for (var i = 0; i < jdata.length; i++) {
+                    //row[i] = [jdata[i].tickerSymbol, jdata[i].ask, jdata[i].bid, jdata[i].pERatio, "<button onclick=op('" + jdata[i].tickerSymbol + "',0)>Buy</button>", "<button onclick=op('" + jdata[i].tickerSymbol + "',1)>Sell</button>"];
+                    row[i]=[jdata[i].tickerSymbol+".HK",jdata[i].bid,"<a class='buysell' onclick=op('"+jdata[i].tickerSymbol+"',2)>Sell</a>",jdata[i].ask,"<a class='buysell' onclick=op('"+jdata[i].tickerSymbol+"',1)>Buy</a>",jdata[i].averageDailyVolume,jdata[i].change,jdata[i].earningsShare,jdata[i].marketCapitalization,jdata[i].open,jdata[i].previousClose,jdata[i].changeinPercent,jdata[i].priceSales,jdata[i].priceBook,jdata[i].pERatio,jdata[i].pEGRatio,jdata[i].oneyrTargetPrice,jdata[i].volume];
+                }
+
+                $('.marketData').dataTable({
+				    //"bJQueryUI": true,
+
+				    "sPaginationType": "full_numbers",
+				    "bProcessing": true,
+                    "bDestroy": true,
+				     "aaData": row,
+			    });
+
+                //alert(JSON.stringify(data));
+            });
+
+    }
+    OData.read("http://192.168.1.10/TAExchangeBrokerage/Brokerage.svc/markets",
+            function (data, request) {
+                var output = document.getElementById('raw_out');
+                //output.innerHTML = data;
+            });
+
+    // set headers to JSON if we intend to have JSON being returned to us.
+    
+            $(document).ready(function(){
+		        $( "#dialog-form" ).dialog({
+			        autoOpen: false,
+			        height: 250,
+			        width: 400,
+			        modal: true,
+			        buttons: {
+				        "Trade":function() {
+					        id = $("#data-stock-id").attr("title");
+                            type = $("#data-status-type").attr("title");
+                            quantity = $("#quantity").val();
+                            $("#msg").html("We are processing your trade");
+                            $.ajax({
+                              url: "http://192.168.1.10/TAExchangeDesktop/transaction.aspx?orderTypeID=1&tradeTypeID="+type+"&quantity="+quantity+"&tradeStatusID=1&tickerSymbol="+id,
+                              type: 'GET',
+                              context: document.body
+                            }).done(function(data) { 
+                                console.log(data);
+                                var n=data.search("Success");
+                                if(n>=0){
+                                    alert("Traded");
+                                    $( "#dialog-form" ).dialog( "close" );
+                                    $("#msg").html("");
+                                }
+                                else{
+                                    alert(id + " " + type + " " + quantity);
+                                    alert("Error");
+                                    $("#msg").html("Error. Please check your input.");
+
+                                }
+                                $("#quantity").val("");
+                            });
+
+				        },
+                        "Cancel": function() {
+					        $( this ).dialog( "close" );
+				        }
+			        }
+		        });
+            });
+
+            setInterval(update, 5000);
+            update();
+
+            
+            function op(id,type){
+		        $("#stockID").html("Stock : "+id);
+                $("#data-stock-id").attr("title",id);
+                
+                $("#data-status-type").attr("title",type);
+		        $("#dialog-form").dialog( "open" );
+                return false;
+	        }
+    </script>
+		<!-- CS LOGO  -->
+		<div class="logo offset1 span10">
+			<div class="container">
+				<div class="row ">
+					<div class="span10">
+						<img src="img/login/logo.png" class="" style = "margin-bottom: 10px;"></img>
+					</div>
+				</div>
+			</div>	
+		</div>
+		<div class="wrapper span10 offset1">
+			<!-- /CS LOGO  -->
+
+			<!-- Navigation bar -->
+			<div class="container navbar">
+				<div class="row">
+					<div class="span10 ">
+						<div class="navbar">
+							<div class="navbar-inner dashboard">
+								<div class="container">
+									<ul class="nav">
+									  <li class="">
+										<a href="portfolio.html" >PORTFOLIO</a>
+									  </li>
+									  <li class="active"><a href="stocks.html">STOCKS</a></li>
+									  <li class=""><a href="news.html">NEWS</a></li>
+									  <li class=""><a href="history.html">HISTORY</a></li>
+									  <li class=""><a href="leaderboard.html">LEADERBOARD</a></li>
+									</ul>
+									<ul class="nav pull-right">
+										<li class="divider-vertical"></li>
+										<li class=""><a href="Account/Logout.aspx">LOGOUT</a></li>
+									</ul>
+							   </div>
+							</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- / Navigation bar -->
+
+
+		<!-- <div class="container"></div> -->
+		<div class="container ticker-roller">
+			<div class="row">
+				<div class="span10 ">
+
+					<!--  ticker scrolling  -->
+					<div id="ticker-carousel" class="carousel slide">
+						<!-- Carousel items -->
+						<div class="carousel-inner">
+						 
+						</div>
+					</div>
+
+				<!-- 	<a class="" href="#ticker-carousel" data-slide="prev">&lsaquo;</a>
+						<a class="" href="#ticker-carousel" data-slide="next">&rsaquo;</a> -->
+
+				</div>
+			</div>
+		</div>
+	  
+		
+
+		<div class="container content">
+			<div class="row">
+				<div class="span9">
+						<table class="marketData" width ='100%'>
+		<thead>
+			<tr>
+				<th width="">tickerSymbol</th>
+                <th width="">bid</th>
+                <th width="">sell</th>
+                <th width="">ask</th>
+                <th width="">buy</th>
+                <th width="">averageDailyVolume</th>
+                <th width="">change</th>
+                <th width="">earningsShare</th>
+                <th width="">marketCapitalization</th>
+                <th width="">open</th>
+                <th width="">previousClose</th>
+                <th width="">changeinPercent</th>
+                <th width="">priceSales</th>
+                <th width="">priceBook</th>
+                <th width="">pERatio</th>
+                <th width="">pEGRatio</th>
+                <th width="">oneyrTargetPrice</th>
+                <th width="">volume</th>
+ 			</tr>
+		</thead>
+		<tbody>
+
+		</tbody>
+	</table>
+
+    <div id = "jsoutput"></div>
+    <div id = "raw_out"></div>
+
+    
+				</div>
+			</div>
+		</div> <!-- /container -->
+		
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="span10 offset1">
+				<footer>
+					<p>&copy; Company 2012</p>
+				</footer>
+			</div>
+		</div>
+	</div>	
+
+    <div id="dialog-form" title="Purchase Stock">
+	    <form action="./stocks.html">
+	    <fieldset>
+		    <div id='stockID'>test</div>	
+		    <label for="quantity">Quantity</label>
+		    <input type="text" name="quantity" id="quantity" class="text ui-widget-content ui-corner-all" />
+            <div id='msg'></div>
+	    </fieldset>
+	    </form>
+    </div>
+    <div id="data">
+        <div id="data-stock-id" title=""></div>
+        <div id="data-status-type" title=""></div>
+    </div>
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
+<script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script>
+
+<script src="js/libs/bootstrap/bootstrap.min.js"></script>
+<script src="js/libs/datajs-1.0.1.js"></script>
+
+<script src="js/plugins.js"></script>
+<script src="js/script.js"></script>
+
+<script src="js/libs/modernizr-2.5.3-respond-1.1.0.min.js"></script>
+
+
+<script type="text/javascript"> 
+	dashboard.startCarousel();
+</script>
+
+
+
+</body>
+</html>

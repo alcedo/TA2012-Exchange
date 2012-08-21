@@ -1,0 +1,31 @@
+c:\users\ang wee howe\documents\visual studio 2010\Projects\TAExchange2012\TAExchangeDesktop\bin\TAExchangeDesktop.dll
+c:\users\ang wee howe\documents\visual studio 2010\Projects\TAExchange2012\TAExchangeDesktop\bin\TAExchangeDesktop.pdb
+c:\users\ang wee howe\documents\visual studio 2010\Projects\TAExchange2012\TAExchangeDesktop\obj\Debug\ResolveAssemblyReference.cache
+c:\users\ang wee howe\documents\visual studio 2010\Projects\TAExchange2012\TAExchangeDesktop\obj\Debug\TAExchangeDesktop.dll
+c:\users\ang wee howe\documents\visual studio 2010\Projects\TAExchange2012\TAExchangeDesktop\obj\Debug\TAExchangeDesktop.pdb
+C:\Users\victor\Desktop\TAExchange1308\TAExchangeDesktop\bin\TAExchangeDesktop.dll
+C:\Users\victor\Desktop\TAExchange1308\TAExchangeDesktop\bin\TAExchangeDesktop.pdb
+C:\Users\victor\Desktop\TAExchange1308\TAExchangeDesktop\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\victor\Desktop\TAExchange1308\TAExchangeDesktop\obj\Debug\TAExchangeDesktop.dll
+C:\Users\victor\Desktop\TAExchange1308\TAExchangeDesktop\obj\Debug\TAExchangeDesktop.pdb
+C:\Users\devadmin\Desktop\TAExchange 14Aug\TAExchangeDesktop\bin\TAExchangeDesktop.dll
+C:\Users\devadmin\Desktop\TAExchange 14Aug\TAExchangeDesktop\bin\TAExchangeDesktop.pdb
+C:\Users\devadmin\Desktop\TAExchange 14Aug\TAExchangeDesktop\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\devadmin\Desktop\TAExchange 14Aug\TAExchangeDesktop\obj\Debug\TAExchangeDesktop.dll
+C:\Users\devadmin\Desktop\TAExchange 14Aug\TAExchangeDesktop\obj\Debug\TAExchangeDesktop.pdb
+C:\Users\j.rong\Desktop\simulatorRepo\TAExchange 14Aug\TAExchangeDesktop\bin\TAExchangeDesktop.dll
+C:\Users\j.rong\Desktop\simulatorRepo\TAExchange 14Aug\TAExchangeDesktop\bin\TAExchangeDesktop.pdb
+C:\Users\j.rong\Desktop\simulatorRepo\TAExchange 14Aug\TAExchangeDesktop\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\j.rong\Desktop\simulatorRepo\TAExchange 14Aug\TAExchangeDesktop\obj\Debug\TAExchangeDesktop.dll
+C:\Users\j.rong\Desktop\simulatorRepo\TAExchange 14Aug\TAExchangeDesktop\obj\Debug\TAExchangeDesktop.pdb
+C:\Users\j.rong\Desktop\simulatorRepo\TAExchange _v0.5\TAExchangeDesktop\bin\TAExchangeDesktop.dll
+C:\Users\j.rong\Desktop\simulatorRepo\TAExchange _v0.5\TAExchangeDesktop\bin\TAExchangeDesktop.pdb
+C:\Users\j.rong\Desktop\simulatorRepo\TAExchange _v0.5\TAExchangeDesktop\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\j.rong\Desktop\simulatorRepo\TAExchange _v0.5\TAExchangeDesktop\obj\Debug\TAExchangeDesktop.dll
+C:\Users\j.rong\Desktop\simulatorRepo\TAExchange _v0.5\TAExchangeDesktop\obj\Debug\TAExchangeDesktop.pdb
+C:\Dev\Repo\TAExchange _v0.5\TAExchangeDesktop\obj\Debug\ResolveAssemblyReference.cache
+C:\TAExchange\TAExchangeDesktop\obj\Debug\ResolveAssemblyReference.cache
+C:\TAExchange\TAExchangeDesktop\obj\Debug\TAExchangeDesktop.dll
+C:\TAExchange\TAExchangeDesktop\obj\Debug\TAExchangeDesktop.pdb
+C:\TAExchange\TAExchangeDesktop\bin\TAExchangeDesktop.dll
+C:\TAExchange\TAExchangeDesktop\bin\TAExchangeDesktop.pdb

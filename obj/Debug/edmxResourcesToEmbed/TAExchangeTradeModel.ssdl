@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TAExchangeTradeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="TAExchangeTradeModelStoreContainer">
+    <EntitySet Name="account" EntityType="TAExchangeTradeModel.Store.account" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="accountHistory" EntityType="TAExchangeTradeModel.Store.accountHistory" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="expiryType" EntityType="TAExchangeTradeModel.Store.expiryType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="forex" EntityType="TAExchangeTradeModel.Store.forex" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="market" EntityType="TAExchangeTradeModel.Store.market" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="orderType" EntityType="TAExchangeTradeModel.Store.orderType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="portfolio" EntityType="TAExchangeTradeModel.Store.portfolio" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="portfolioHistory" EntityType="TAExchangeTradeModel.Store.portfolioHistory" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="stock" EntityType="TAExchangeTradeModel.Store.stock" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="TAExchangeTradeModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="trade" EntityType="TAExchangeTradeModel.Store.trade" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tradeStatus" EntityType="TAExchangeTradeModel.Store.tradeStatus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tradeType" EntityType="TAExchangeTradeModel.Store.tradeType" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_market_stock" Association="TAExchangeTradeModel.Store.FK_market_stock">
+      <End Role="stock" EntitySet="stock" />
+      <End Role="market" EntitySet="market" />
+    </AssociationSet>
+    <AssociationSet Name="FK_portfolio_account" Association="TAExchangeTradeModel.Store.FK_portfolio_account">
+      <End Role="account" EntitySet="account" />
+      <End Role="portfolio" EntitySet="portfolio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_portfolio_stock" Association="TAExchangeTradeModel.Store.FK_portfolio_stock">
+      <End Role="stock" EntitySet="stock" />
+      <End Role="portfolio" EntitySet="portfolio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_stock_forex" Association="TAExchangeTradeModel.Store.FK_stock_forex">
+      <End Role="forex" EntitySet="forex" />
+      <End Role="stock" EntitySet="stock" />
+    </AssociationSet>
+    <AssociationSet Name="FK_trade_account" Association="TAExchangeTradeModel.Store.FK_trade_account">
+      <End Role="account" EntitySet="account" />
+      <End Role="trade" EntitySet="trade" />
+    </AssociationSet>
+    <AssociationSet Name="FK_trade_expiryType" Association="TAExchangeTradeModel.Store.FK_trade_expiryType">
+      <End Role="expiryType" EntitySet="expiryType" />
+      <End Role="trade" EntitySet="trade" />
+    </AssociationSet>
+    <AssociationSet Name="FK_trade_orderType" Association="TAExchangeTradeModel.Store.FK_trade_orderType">
+      <End Role="orderType" EntitySet="orderType" />
+      <End Role="trade" EntitySet="trade" />
+    </AssociationSet>
+    <AssociationSet Name="FK_trade_stock" Association="TAExchangeTradeModel.Store.FK_trade_stock">
+      <End Role="stock" EntitySet="stock" />
+      <End Role="trade" EntitySet="trade" />
+    </AssociationSet>
+    <AssociationSet Name="FK_trade_tradeStatus" Association="TAExchangeTradeModel.Store.FK_trade_tradeStatus">
+      <End Role="tradeStatus" EntitySet="tradeStatus" />
+      <End Role="trade" EntitySet="trade" />
+    </AssociationSet>
+    <AssociationSet Name="FK_trade_tradeType" Association="TAExchangeTradeModel.Store.FK_trade_tradeType">
+      <End Role="tradeType" EntitySet="tradeType" />
+      <End Role="trade" EntitySet="trade" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="account">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="currentBalance" Type="money" Nullable="false" />
+    <Property Name="pNL" Type="money" Nullable="false" />
+    <Property Name="ranking" Type="int" />
+  </EntityType>
+  <EntityType Name="accountHistory">
+    <Key>
+      <PropertyRef Name="userID" />
+      <PropertyRef Name="logDate" />
+    </Key>
+    <Property Name="userID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="currentBalance" Type="money" Nullable="false" />
+    <Property Name="pNL" Type="money" Nullable="false" />
+    <Property Name="ranking" Type="int" Nullable="false" />
+    <Property Name="logDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="expiryType">
+    <Key>
+      <PropertyRef Name="expiryTypeID" />
+    </Key>
+    <Property Name="expiryTypeID" Type="int" Nullable="false" />
+    <Property Name="expiryType" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="description" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="forex">
+    <Key>
+      <PropertyRef Name="currency" />
+    </Key>
+    <Property Name="currency" Type="nchar" Nullable="false" MaxLength="3" />
+    <Property Name="rate" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="market">
+    <Key>
+      <PropertyRef Name="tickerSymbol" />
+    </Key>
+    <Property Name="tickerSymbol" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="ask" Type="nvarchar" MaxLength="25" />
+    <Property Name="averageDailyVolume" Type="nvarchar" MaxLength="25" />
+    <Property Name="bid" Type="nvarchar" MaxLength="25" />
+    <Property Name="change" Type="nvarchar" MaxLength="25" />
+    <Property Name="earningsShare" Type="nvarchar" MaxLength="25" />
+    <Property Name="marketCapitalization" Type="nvarchar" MaxLength="25" />
+    <Property Name="open" Type="nvarchar" MaxLength="25" />
+    <Property Name="previousClose" Type="nvarchar" MaxLength="25" />
+    <Property Name="changeinPercent" Type="nvarchar" MaxLength="25" />
+    <Property Name="priceSales" Type="nvarchar" MaxLength="25" />
+    <Property Name="priceBook" Type="nvarchar" MaxLength="25" />
+    <Property Name="pERatio" Type="nvarchar" MaxLength="25" />
+    <Property Name="pEGRatio" Type="nvarchar" MaxLength="25" />
+    <Property Name="oneyrTargetPrice" Type="nvarchar" MaxLength="25" />
+    <Property Name="volume" Type="nvarchar" MaxLength="25" />
+    <Property Name="dividendYield" Type="nvarchar" MaxLength="25" />
+    <Property Name="lastUpdate" Type="datetime" />
+    <Property Name="daysRange" Type="nvarchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="orderType">
+    <Key>
+      <PropertyRef Name="orderTypeID" />
+    </Key>
+    <Property Name="orderTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="orderType" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="description" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="portfolio">
+    <Key>
+      <PropertyRef Name="userID" />
+      <PropertyRef Name="tickerSymbol" />
+    </Key>
+    <Property Name="userID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="tickerSymbol" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="quantity" Type="decimal" Nullable="false" />
+    <Property Name="averagePrice" Type="money" Nullable="false" />
+    <Property Name="pNL" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="portfolioHistory">
+    <Key>
+      <PropertyRef Name="userID" />
+      <PropertyRef Name="tickerSymbol" />
+      <PropertyRef Name="logDate" />
+    </Key>
+    <Property Name="userID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="tickerSymbol" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="quantity" Type="decimal" Nullable="false" />
+    <Property Name="averagePrice" Type="money" Nullable="false" />
+    <Property Name="pNL" Type="money" Nullable="false" />
+    <Property Name="logDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="stock">
+    <Key>
+      <PropertyRef Name="tickerSymbol" />
+    </Key>
+    <Property Name="tickerSymbol" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="stockName" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="lastDone" Type="money" Nullable="false" />
+    <Property Name="currency" Type="nchar" Nullable="false" MaxLength="3" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="trade">
+    <Key>
+      <PropertyRef Name="transactionID" />
+    </Key>
+    <Property Name="transactionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="tradeTypeID" Type="int" Nullable="false" />
+    <Property Name="orderTypeID" Type="int" Nullable="false" />
+    <Property Name="tickerSymbol" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="quantity" Type="decimal" Nullable="false" />
+    <Property Name="tradePrice" Type="money" Nullable="false" />
+    <Property Name="tradeTime" Type="datetime" />
+    <Property Name="tradeStatusID" Type="int" Nullable="false" />
+    <Property Name="expiryTypeID" Type="int" />
+    <Property Name="expiryDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tradeStatus">
+    <Key>
+      <PropertyRef Name="tradeStatusID" />
+    </Key>
+    <Property Name="tradeStatusID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="tradeStatus" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="description" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="tradeType">
+    <Key>
+      <PropertyRef Name="tradeTypeID" />
+    </Key>
+    <Property Name="tradeTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="tradeType" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="description" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <Association Name="FK_market_stock">
+    <End Role="stock" Type="TAExchangeTradeModel.Store.stock" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="market" Type="TAExchangeTradeModel.Store.market" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="stock">
+        <PropertyRef Name="tickerSymbol" />
+      </Principal>
+      <Dependent Role="market">
+        <PropertyRef Name="tickerSymbol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_portfolio_account">
+    <End Role="account" Type="TAExchangeTradeModel.Store.account" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="portfolio" Type="TAExchangeTradeModel.Store.portfolio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="account">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="portfolio">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_portfolio_stock">
+    <End Role="stock" Type="TAExchangeTradeModel.Store.stock" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="portfolio" Type="TAExchangeTradeModel.Store.portfolio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="stock">
+        <PropertyRef Name="tickerSymbol" />
+      </Principal>
+      <Dependent Role="portfolio">
+        <PropertyRef Name="tickerSymbol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_stock_forex">
+    <End Role="forex" Type="TAExchangeTradeModel.Store.forex" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="stock" Type="TAExchangeTradeModel.Store.stock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="forex">
+        <PropertyRef Name="currency" />
+      </Principal>
+      <Dependent Role="stock">
+        <PropertyRef Name="currency" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_trade_account">
+    <End Role="account" Type="TAExchangeTradeModel.Store.account" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="trade" Type="TAExchangeTradeModel.Store.trade" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="account">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="trade">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_trade_expiryType">
+    <End Role="expiryType" Type="TAExchangeTradeModel.Store.expiryType" Multiplicity="0..1" />
+    <End Role="trade" Type="TAExchangeTradeModel.Store.trade" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="expiryType">
+        <PropertyRef Name="expiryTypeID" />
+      </Principal>
+      <Dependent Role="trade">
+        <PropertyRef Name="expiryTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_trade_orderType">
+    <End Role="orderType" Type="TAExchangeTradeModel.Store.orderType" Multiplicity="1" />
+    <End Role="trade" Type="TAExchangeTradeModel.Store.trade" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orderType">
+        <PropertyRef Name="orderTypeID" />
+      </Principal>
+      <Dependent Role="trade">
+        <PropertyRef Name="orderTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_trade_stock">
+    <End Role="stock" Type="TAExchangeTradeModel.Store.stock" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="trade" Type="TAExchangeTradeModel.Store.trade" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="stock">
+        <PropertyRef Name="tickerSymbol" />
+      </Principal>
+      <Dependent Role="trade">
+        <PropertyRef Name="tickerSymbol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_trade_tradeStatus">
+    <End Role="tradeStatus" Type="TAExchangeTradeModel.Store.tradeStatus" Multiplicity="1" />
+    <End Role="trade" Type="TAExchangeTradeModel.Store.trade" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tradeStatus">
+        <PropertyRef Name="tradeStatusID" />
+      </Principal>
+      <Dependent Role="trade">
+        <PropertyRef Name="tradeStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_trade_tradeType">
+    <End Role="tradeType" Type="TAExchangeTradeModel.Store.tradeType" Multiplicity="1" />
+    <End Role="trade" Type="TAExchangeTradeModel.Store.trade" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tradeType">
+        <PropertyRef Name="tradeTypeID" />
+      </Principal>
+      <Dependent Role="trade">
+        <PropertyRef Name="tradeTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

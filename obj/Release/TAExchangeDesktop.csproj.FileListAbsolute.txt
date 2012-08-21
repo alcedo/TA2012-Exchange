@@ -1,0 +1,5 @@
+C:\TAExchange\TAExchangeDesktop\bin\TAExchangeDesktop.dll
+C:\TAExchange\TAExchangeDesktop\bin\TAExchangeDesktop.pdb
+C:\TAExchange\TAExchangeDesktop\obj\Release\ResolveAssemblyReference.cache
+C:\TAExchange\TAExchangeDesktop\obj\Release\TAExchangeDesktop.dll
+C:\TAExchange\TAExchangeDesktop\obj\Release\TAExchangeDesktop.pdb

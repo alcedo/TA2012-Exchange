@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Portfolios Demo with JSON</title>
+    <link type="text/css" rel="stylesheet" href="../Styles/custom-theme/jquery-ui-1.8.22.custom.css"  />
+	<link type="text/css" rel="stylesheet" href="../Styles/demo_table_jui.css"/>
+	<link type="text/css" rel="stylesheet" href="../Styles/demo_page.css"/>
+    <script type="text/javascript" src="../Scripts/datajs-1.0.1.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="../Scripts/jquery-ui-1.8.22.custom.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.dataTables.min.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        // Use Data JS to parse ODATA format. This enables us to deal with the underlying
+        // payload data without having to parse the XML tags ourselves. 
+        // refer to DATAJS website for more details on how to use it.
+        OData.defaultHttpClient.enableJsonpCallback = true;
+
+    function update(){
+        // set headers to JSON if we intend to have JSON being returned to us.
+        OData.read({ requestUri: "http://192.168.1.10/TAExchangeBrokerage/Brokerage.svc/portfolios", headers: { Accept: "application/json"} },
+        function (data, request) {
+
+            var jdata = data.results;
+
+            var row = new Array();
+
+            for (var i = 0; i < jdata.length; i++) {
+                row[i]=[jdata[i].userID,jdata[i].tickerSymbol,jdata[i].quantity,jdata[i].averagePrice,jdata[i].pNL];
+            }
+
+            $('.marketData').dataTable({
+				"bJQueryUI": true,
+				"sPaginationType": "full_numbers",
+				"bProcessing": true,
+                "bDestroy": true,
+				    "aaData": row,
+			});
+        });
+    }//end of function update()
+
+    setInterval(update, 5000);
+    update();
+    </script>
+    
+    <table class="marketData" width ='100%'>
+		<thead>
+			<tr>
+                <th width="">userID</th>
+                <th width="">tickerSymbol</th>
+                <th width="">quantity</th>
+                <th width="">averagePrice</th>
+                <th width="">pNL</th>
+			</tr>
+		</thead>
+		<tbody>
+
+		</tbody>
+	</table>
+</body>
+</html>
